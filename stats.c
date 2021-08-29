@@ -9,17 +9,20 @@
  *
  *****************************************************************************/
 /**
- * @file <Add File Name> 
- * @brief <Add Brief Description Here >
+ * @file stats.c
+ * @brief Implementation of functions to analyse array of char data.
  *
- * <Add Extended Description Here>
+ * Provide functions to analyze an array of unsigned data items 
+ *	and report analytics on the max, min, mean and the median of the
+ *	data set.
+ * Reorder this data set from large to small.
+ * All statistics are rounded down to the nearest integer.
+ * Prints data to the screen in nicely formatted presentation.
  *
- * @author <Add FirsName LastName>
- * @date <Add date >
+ * @author Danillo Santos
+ * @date 29-Aug-2021
  *
  */
-
-
 
 #include <stdio.h>
 #include "stats.h"
@@ -37,7 +40,26 @@ void main() {
 
   /* Other Variable Declarations Go Here */
   /* Statistics and Printing Functions Go Here */
-
 }
 
 /* Add other Implementation File Code Here */
+void print_statistics()
+{}
+
+void print_array(unsigned char * data, unsigned int length)
+{}
+
+unsigned char find_median(unsigned char * data, unsigned int length)
+{}
+
+unsigned char find_mean(unsigned char * data, unsigned int length)
+{}
+
+unsigned char find_maximum(unsigned char * data, unsigned int length)
+{}
+
+unsigned char find_minimum(unsigned char * data, unsigned int length)
+{}
+
+void sort_array(unsigned char * data, unsigned int length)
+{}
