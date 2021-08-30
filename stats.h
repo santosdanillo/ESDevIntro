@@ -37,7 +37,7 @@
  *
  * @return none
  */
-void print_statistics();
+void print_statistics(unsigned char * data, unsigned int length);
 
 /**
  * @brief A function to print the content of a unsigned char array to stdio
