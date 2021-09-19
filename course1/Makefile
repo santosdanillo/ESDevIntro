@@ -64,26 +64,14 @@ else
 
 endif
 # Application
-SRC = ./src
-BUILD = ./build
-TARGET = $(BUILD)/final
+SRCDIR = src
+BUILDDIR = build
+TARGET = $(BUILDDIR)/final
 
-ASMS = $(SOURCES:.c=.asm)
-DEPS = $(SOURCES:.c=.d)
-OBJS = $(SOURCES:.c=.o)
-PPPS = $(SOURCES:.c=.i)
-
-%.asm: %.c
-	$(CC) -S $< $(CFLAGS) -o $@
-
-%.d: %.c
-	$(CC) -c $(DEPFLAGS) $@ $(CFLAGS) $<
-
-%.i: %.c
-	$(CC) -E $< $(CFLAGS) -o $@
-
-%.o: %.c
-	$(CC) -c $< $(CFLAGS) -o $@
+ASMS := $(SOURCES:%.c=$(BUILDDIR)/%.asm)
+DEPS := $(SOURCES:%.c=$(BUILDDIR)/%.d)
+OBJS := $(SOURCES:%.c=$(BUILDDIR)/%.o)
+PPPS := $(SOURCES:%.c=$(BUILDDIR)/%.i)
 
 .PHONY: build
 build: all
@@ -94,10 +82,22 @@ all: $(TARGET).out
 .PHONY: compile-all
 compile-all: $(OBJS)
 
+$(ASMS) : $(BUILDDIR)/%.asm : $(SRCDIR)/%.c
+	$(CC) -S $< $(CFLAGS) -o $@
+
+$(DEPS) : $(BUILDDIR)/%.d : $(SRCDIR)/%.c
+	$(CC) -c $(DEPFLAGS) $@ $(CFLAGS) $<
+
+$(PPPS) : $(BUILDDIR)/%.i : $(SRCDIR)/%.c
+	$(CC) -E $< $(CFLAGS) -o $@
+
+$(OBJS) : $(BUILDDIR)/%.o : $(SRCDIR)/%.c
+	$(CC) -c $< $(CFLAGS) -o $@
+
 $(TARGET).out: $(DEPS) $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $@
 	$(SIZE) $@
 
 .PHONY: clean
 clean:
-	rm -f $(DEPS) $(OBJS) $(ASMS) $(PPPS) $(TARGET).out $(TARGET).map
+	rm -f $(BUILDDIR)/*
