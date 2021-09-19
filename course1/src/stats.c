@@ -44,36 +44,35 @@
 
 //   /* Other Variable Declarations Go Here */
 //   /* Statistics and Printing Functions Go Here */
-  
+
 //   sort_array(test, SIZE);
-  
+
 //   print_statistics(test, SIZE);
 // }
 
 /* Add other Implementation File Code Here */
 
-void print_statistics(unsigned char * data, unsigned int length)
+void print_statistics(unsigned char *data, unsigned int length)
 {
-    #ifdef VERBOSE
     print_array(data, length);
     PRINTF("Median: %d\n", find_median(data, length));
     PRINTF("Mean: %d\n", find_mean(data, length));
     PRINTF("Max: %d\n", find_maximum(data, length));
     PRINTF("Min: %d\n", find_minimum(data, length));
-    #endif
 }
 
-void print_array(unsigned char * data, unsigned int length)
+void print_array(unsigned char *data, unsigned int length)
 {
-    #define ELEMENTS_PER_LINE 8
+#define ELEMENTS_PER_LINE 8
+#ifdef VERBOSE
     unsigned int i;
     unsigned int elemLeft = ELEMENTS_PER_LINE;
+
     PRINTF("Array:\n");
-    
-    for ( i = 0; i < length; i++)
+    for (i = 0; i < length; i++)
     {
         PRINTF("%d\t", data[i]);
-        
+
         if (--elemLeft == 0)
         {
             elemLeft = ELEMENTS_PER_LINE;
@@ -81,25 +80,26 @@ void print_array(unsigned char * data, unsigned int length)
         }
     }
     PRINTF("\n");
+#endif
 }
 
-unsigned char find_median(unsigned char * data, unsigned int length)
+unsigned char find_median(unsigned char *data, unsigned int length)
 {
-    unsigned int midIdx = length/2;
-    
+    unsigned int midIdx = length / 2;
+
     if ((length % 2) == 0)
     {
-        // even number of elements, for a sorted array, 
+        // even number of elements, for a sorted array,
         // median is the average of both middle two elements
-        return (unsigned char)floor((data[midIdx-1] + data[midIdx])/2);
+        return (unsigned char)floor((data[midIdx - 1] + data[midIdx]) / 2);
     }
-    
-    // odd number of elements, for a sorted array, 
+
+    // odd number of elements, for a sorted array,
     // median is the middle element
-   return data[midIdx];
+    return data[midIdx];
 }
 
-unsigned char find_mean(unsigned char * data, unsigned int length)
+unsigned char find_mean(unsigned char *data, unsigned int length)
 {
     int i;
     unsigned int sum = 0;
@@ -107,32 +107,34 @@ unsigned char find_mean(unsigned char * data, unsigned int length)
     {
         sum += data[i];
     }
-    sum = floor(sum/length);
+    sum = floor(sum / length);
 
     return (sum > UCHAR_MAX) ? UCHAR_MAX : (unsigned char)sum;
 }
 
-unsigned char find_maximum(unsigned char * data, unsigned int length)
+unsigned char find_maximum(unsigned char *data, unsigned int length)
 {
     return data[0];
 }
 
-unsigned char find_minimum(unsigned char * data, unsigned int length)
+unsigned char find_minimum(unsigned char *data, unsigned int length)
 {
-    return data[length-1];
+    return data[length - 1];
 }
 
-int compare_unsigned_char(const void* a, const void* b)
+int compare_unsigned_char(const void *a, const void *b)
 {
-    unsigned char arg1 = *(const unsigned char*)a;
-    unsigned char arg2 = *(const unsigned char*)b;
- 
-    if (arg1 < arg2) return 1;
-    if (arg1 > arg2) return -1;
+    unsigned char arg1 = *(const unsigned char *)a;
+    unsigned char arg2 = *(const unsigned char *)b;
+
+    if (arg1 < arg2)
+        return 1;
+    if (arg1 > arg2)
+        return -1;
     return 0;
 }
 
-void sort_array(unsigned char * data, unsigned int length)
+void sort_array(unsigned char *data, unsigned int length)
 {
     qsort(data, length, sizeof(unsigned char), compare_unsigned_char);
 }

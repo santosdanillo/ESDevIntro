@@ -40,7 +40,8 @@ LINKER_FILE = ../msp432p401r.lds
 include sources.mk
 
 # Compiler Flags and Defines
-CFLAGS = -Wall -Werror -g -O0 -std=c99 -lm -DCOURSE1 -DVERBOSE
+CFLAGS = -Wall -Werror -g -O0 -std=c99 -lm -DCOURSE1 
+#-DVERBOSE
 DEPFLAGS = -MT $@ -MMD -MP -MF
 LDFLAGS = -Wl,-Map=$(TARGET).map
 
