@@ -63,13 +63,24 @@ void clear_all(char *ptr, unsigned int size)
 
 uint8_t *my_memmove(uint8_t *src, uint8_t *dst, size_t length)
 {
+    uint8_t tmpBuf[length];
     uint8_t *source = src;
-    uint8_t *destination = dst;
+    uint8_t *destination = tmpBuf;
     uint32_t i;
+
     for (i = 0; i < length; i++)
     {
         *destination++ = *source++;
     }
+
+    source = tmpBuf;
+    destination = dst;
+
+    for (i = 0; i < length; i++)
+    {
+        *destination++ = *source++;
+    }
+
     return dst;
 }
 
