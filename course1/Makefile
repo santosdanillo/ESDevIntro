@@ -30,15 +30,17 @@
 #      PLATFORM - Chooses between HOST and MSP432(default)
 #
 #------------------------------------------------------------------------------
-include sources.mk
 
 # Platform Overrides, Architecture Specific Flags
-PLATFORM = MSP432
+#PLATFORM = MSP432
+PLATFORM = HOST
 CPU = cortex-m4
 LINKER_FILE = ../msp432p401r.lds
 
+include sources.mk
+
 # Compiler Flags and Defines
-CFLAGS = -Wall -Werror -g -O0 -std=c99
+CFLAGS = -Wall -Werror -g -O0 -std=c99 -lm -DCOURSE1 -DVERBOSE
 DEPFLAGS = -MT $@ -MMD -MP -MF
 LDFLAGS = -Wl,-Map=$(TARGET).map
 
@@ -61,14 +63,15 @@ else
 		  $(INCLUDES)
 
 endif
+# Application
+SRC = ./src
+BUILD = ./build
+TARGET = $(BUILD)/final
 
 ASMS = $(SOURCES:.c=.asm)
 DEPS = $(SOURCES:.c=.d)
 OBJS = $(SOURCES:.c=.o)
 PPPS = $(SOURCES:.c=.i)
-
-# Application
-TARGET = c1m2
 
 %.asm: %.c
 	$(CC) -S $< $(CFLAGS) -o $@

@@ -25,6 +25,7 @@
  */
 
 #include "stats.h"
+#include "platform.h"
 #include <limits.h>
 #include <math.h>
 #include <stdio.h>
@@ -33,31 +34,33 @@
 /* Size of the Data Set */
 #define SIZE (40)
 
-void main()
-{
-    unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
-                                114,  88,  45,  76, 123,  87,  25,  23,
-                                200, 122, 150,  90,  92,  87, 177, 244,
-                                201,   6,  12,  60,   8,   2,   5,  67,
-                                  7,  87, 250, 230,  99,   3, 100,  90};
+// void main()
+// {
+//     unsigned char test[SIZE] = { 34, 201, 190, 154,   8, 194,   2,   6,
+//                                 114,  88,  45,  76, 123,  87,  25,  23,
+//                                 200, 122, 150,  90,  92,  87, 177, 244,
+//                                 201,   6,  12,  60,   8,   2,   5,  67,
+//                                   7,  87, 250, 230,  99,   3, 100,  90};
 
-  /* Other Variable Declarations Go Here */
-  /* Statistics and Printing Functions Go Here */
+//   /* Other Variable Declarations Go Here */
+//   /* Statistics and Printing Functions Go Here */
   
-  sort_array(test, SIZE);
+//   sort_array(test, SIZE);
   
-  print_statistics(test, SIZE);
-}
+//   print_statistics(test, SIZE);
+// }
 
 /* Add other Implementation File Code Here */
 
 void print_statistics(unsigned char * data, unsigned int length)
 {
+    #ifdef VERBOSE
     print_array(data, length);
-    printf("Median: %d\n", find_median(data, length));
-    printf("Mean: %d\n", find_mean(data, length));
-    printf("Max: %d\n", find_maximum(data, length));
-    printf("Min: %d\n", find_minimum(data, length));
+    PRINTF("Median: %d\n", find_median(data, length));
+    PRINTF("Mean: %d\n", find_mean(data, length));
+    PRINTF("Max: %d\n", find_maximum(data, length));
+    PRINTF("Min: %d\n", find_minimum(data, length));
+    #endif
 }
 
 void print_array(unsigned char * data, unsigned int length)
@@ -65,19 +68,19 @@ void print_array(unsigned char * data, unsigned int length)
     #define ELEMENTS_PER_LINE 8
     unsigned int i;
     unsigned int elemLeft = ELEMENTS_PER_LINE;
-    printf("Array:\n");
+    PRINTF("Array:\n");
     
     for ( i = 0; i < length; i++)
     {
-        printf("%d\t", data[i]);
+        PRINTF("%d\t", data[i]);
         
         if (--elemLeft == 0)
         {
             elemLeft = ELEMENTS_PER_LINE;
-            printf("\n");
+            PRINTF("\n");
         }
     }
-    printf("\n");
+    PRINTF("\n");
 }
 
 unsigned char find_median(unsigned char * data, unsigned int length)

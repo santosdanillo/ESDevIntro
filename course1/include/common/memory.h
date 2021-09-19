@@ -1,10 +1,10 @@
 /******************************************************************************
- * Copyright (C) 2017 by Alex Fosdick - University of Colorado
+ * Copyright (C) 2017 by Danillo Santos - Skynet Terminators
  *
  * Redistribution, modification or use of this software in source or binary
  * forms is permitted as long as the files maintain this copyright. Users are 
  * permitted to modify this and use it to learn about the field of embedded
- * software. Alex Fosdick and the University of Colorado are not liable for any
+ * software. Danillo Santos and the University of Colorado are not liable for any
  * misuse of this material. 
  *
  *****************************************************************************/
@@ -15,12 +15,15 @@
  * This header file provides an abstraction of reading and
  * writing to memory via function calls. 
  *
- * @author Alex Fosdick
- * @date April 1 2017
+ * @author Danillo Santos
+ * @date Sep 18 2021
  *
  */
 #ifndef __MEMORY_H__
 #define __MEMORY_H__
+
+#include <stdint.h>
+#include <stdlib.h>
 
 /**
  * @brief Sets a value of a data array 
@@ -89,5 +92,96 @@ void set_all(char * ptr, char value, unsigned int size);
  * @return void.
  */
 void clear_all(char * ptr, unsigned int size);
+
+/**
+ * @brief Move from the source location to the destination.
+ *
+ * Handle overlap of source and destination. 
+ * Copy occurs with no data corruption.
+ * All operations performed using pointer arithmetic, not array indexing. 
+ *
+ * @param src Pointer to data source
+ * @param dst Pointer to data destination
+ * @param length Number of bytes
+ *
+ * @return Pointer to the destination (dst)
+ */
+uint8_t * my_memmove(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * @brief Copy from the source location to the destination.
+ *
+ * The behavior is undefined if there is overlap of source and destination.
+ * Copy still occur, but will likely corrupt data.
+ * All operations performed using pointer arithmetic, not array indexing. 
+ *
+ * @param src Pointer to data source
+ * @param dst Pointer to data destination
+ * @param length Number of bytes
+ *
+ * @return Pointer to the destination (dst)
+ */
+uint8_t * my_memcopy(uint8_t * src, uint8_t * dst, size_t length);
+
+/**
+ * @brief Set all locations of a memory location to a given value.
+ *
+ * All operations performed using pointer arithmetic, not array indexing. 
+ * Shall NOT reuse the set_all() function
+ *
+ * @param src Pointer to a source memory location 
+ * @param length Number of bytes
+ * @param value Value to be set in memory location
+ *
+ * @return pointer to the source (src).
+ */
+uint8_t * my_memset(uint8_t * src, size_t length, uint8_t value);
+
+/**
+ * @brief Zero out all of the memory.
+ *
+ * All operations performed using pointer arithmetic, not array indexing.
+ * Shall NOT reuse the clear_all() function
+ *
+ * @param src Pointer to a memory location, a 
+ * @param length Number of bytes
+ *
+ * @return pointer to the source (src).
+ */
+uint8_t * my_memzero(uint8_t * src, size_t length);
+
+/**
+ * @brief Reverse the order of all of the bytes.
+ *
+ * All operations performed using pointer arithmetic, not array indexing.
+ *
+ * @param src Pointer to source memory location 
+ * @param length Number of bytes
+ *
+ * @return Pointer to src
+ */
+uint8_t * my_reverse(uint8_t * src, size_t length);
+
+/**
+ * @brief Take number of words to allocate in dynamic memory
+ *
+ * All operations are performed using pointer arithmetic, not array indexing.
+ *
+ * @param length Number of bytes
+ *
+ * @return Pointer to memory if successful, or a Null Pointer if not successful
+ */
+int32_t * reserve_words(size_t length);
+
+/**
+ * @brief Free a dynamic memory allocation by providing the pointer src to the function
+ *
+ * All operations are performed using pointer arithmetic, not array indexing.
+ *
+ * @param src Pointer to data source
+ *
+ * @return void.
+ */
+void free_words(uint32_t * src);
 
 #endif /* __MEMORY_H__ */
