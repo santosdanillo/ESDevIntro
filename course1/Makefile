@@ -80,7 +80,7 @@ build: all
 all: $(TARGET).out
 
 .PHONY: compile-all
-compile-all: $(OBJS)
+compile-all: $(OBJS) $(DEPS)
 
 $(ASMS) : $(BUILDDIR)/%.asm : $(SRCDIR)/%.c
 	$(CC) -S $< $(CFLAGS) -o $@
@@ -94,7 +94,7 @@ $(PPPS) : $(BUILDDIR)/%.i : $(SRCDIR)/%.c
 $(OBJS) : $(BUILDDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) -c $< $(CFLAGS) -o $@
 
-$(TARGET).out: $(DEPS) $(OBJS)
+$(TARGET).out: $(OBJS)
 	$(CC) $(OBJS) $(CFLAGS) $(LDFLAGS) -o $@
 	$(SIZE) $@
 
