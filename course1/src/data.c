@@ -58,8 +58,8 @@ uint8_t my_itoa(int32_t data, uint8_t *ptr, uint32_t base)
     }
     *buffer = '\0';
     curr++;
-    PRINTF("%s data:%d base:%d str:%s size:%d\n",
-           __FUNCTION__, data, base, ptr, curr);
+    // PRINTF("%s data:%d base:%d str:%s size:%d\n",
+    //        __FUNCTION__, data, base, ptr, curr);
     return (uint8_t)curr;
 }
 
@@ -90,7 +90,7 @@ int32_t my_atoi(uint8_t *ptr, uint8_t digits, uint32_t base)
     }
 
     res = negative ? -res : res;
-    PRINTF("%s str:%s dig:%d base:%d res:%d\n",
-           __FUNCTION__, ptr, digits, base, res);
+    // PRINTF("%s str:%s dig:%d base:%d res:%d\n",
+    //        __FUNCTION__, ptr, digits, base, res);
     return res;
 }

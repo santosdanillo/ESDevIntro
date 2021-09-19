@@ -328,7 +328,6 @@ int8_t test_reverse()
 
 void course1(void)
 {
-    uint8_t i;
     int8_t failed = 0;
     int8_t results[TESTCOUNT];
 
@@ -341,10 +340,11 @@ void course1(void)
     results[6] = test_memset();
     results[7] = test_reverse();
 
+    uint8_t i;
     for (i = 0; i < TESTCOUNT; i++)
     {
         failed += results[i];
-        PRINTF("\tTEST%d result:%d\n", i, results[i]);
+        // PRINTF("\tTEST%d result:%d\n", i, results[i]);
     }
 
     PRINTF("--------------------------------\n");

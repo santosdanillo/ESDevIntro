@@ -123,7 +123,30 @@ uint8_t *my_memzero(uint8_t *src, size_t length)
 
 uint8_t *my_reverse(uint8_t *src, size_t length)
 {
-    return NULL;
+    uint8_t tmpBuf[length];
+    uint8_t *source = src;
+    uint8_t *destination = tmpBuf;
+    uint32_t i;
+    // PRINTF("length:%d\n", (int32_t)length);
+
+    for (i = 0; i < length; i++)
+    {
+        // PRINTF("%x ", *source);
+        *destination++ = *source++;
+    }
+    // PRINTF("\n");
+
+    source = &tmpBuf[length - 1];
+    destination = src;
+
+    for (i = 0; i < length; i++)
+    {
+        // PRINTF("%x ", *source);
+        *destination++ = *source--;
+    }
+    // PRINTF("\n");
+
+    return src;
 }
 
 int32_t *reserve_words(size_t length)
